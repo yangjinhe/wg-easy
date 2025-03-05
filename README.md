@@ -1,55 +1,78 @@
 # WireGuard Easy
 
-[![Build & Publish Docker Image to Docker Hub](https://github.com/wg-easy/wg-easy/actions/workflows/deploy.yml/badge.svg?branch=production)](https://github.com/wg-easy/wg-easy/actions/workflows/deploy.yml)
+[![Build & Publish latest Image](https://github.com/wg-easy/wg-easy/actions/workflows/deploy.yml/badge.svg?branch=production)](https://github.com/wg-easy/wg-easy/actions/workflows/deploy.yml)
 [![Lint](https://github.com/wg-easy/wg-easy/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/wg-easy/wg-easy/actions/workflows/lint.yml)
-![Docker](https://img.shields.io/docker/pulls/weejewel/wg-easy.svg)
-[![Sponsor](https://img.shields.io/github/sponsors/weejewel)](https://github.com/sponsors/WeeJeWel)
-![GitHub Stars](https://img.shields.io/github/stars/wg-easy/wg-easy)
+[![GitHub Stars](https://img.shields.io/github/stars/wg-easy/wg-easy)](https://github.com/wg-easy/wg-easy/stargazers)
+[![License](https://img.shields.io/github/license/wg-easy/wg-easy)](LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/wg-easy/wg-easy)](https://github.com/wg-easy/wg-easy/releases/latest)
+[![Image Pulls](https://img.shields.io/badge/image_pulls-11M-blue)](https://github.com/wg-easy/wg-easy/pkgs/container/wg-easy)
+
+<!-- TODO: remove after release -->
+
+> [!WARNING]
+> You are viewing the README of the pre-release of v15.
+> If you want to setup wg-easy right now. Read the README in the production branch here: [README](https://github.com/wg-easy/wg-easy/tree/production) or here for the last nightly: [README](https://github.com/wg-easy/wg-easy/tree/c6dce0f6fb2e28e7e40ddac1498bd67e9bb17cba)
 
 You have found the easiest way to install & manage WireGuard on any Linux host!
+
+<!-- TOOD: update screenshot -->
 
 <p align="center">
   <img src="./assets/screenshot.png" width="802" />
 </p>
 
 ## Features
-* All-in-one: WireGuard + Web UI.
-* Easy installation, simple to use.
-* List, create, edit, delete, enable & disable clients.
-* Show a client's QR code.
-* Download a client's configuration file.
-* Statistics for which clients are connected.
-* Tx/Rx charts for each connected client.
-* Gravatar support.
-* Automatic Light / Dark Mode
-* Multilanguage Support
-* UI_TRAFFIC_STATS (default off)
+
+- All-in-one: WireGuard + Web UI.
+- Easy installation, simple to use.
+- List, create, edit, delete, enable & disable clients.
+- Show a client's QR code.
+- Download a client's configuration file.
+- Statistics for which clients are connected.
+- Tx/Rx charts for each connected client.
+- Gravatar support.
+- Automatic Light / Dark Mode
+- Multilanguage Support
+- One Time Links
+- Client Expiration
+- Prometheus metrics support
+- IPv6 support
+- CIDR support
+
+> [!NOTE]
+> To better manage documentation for this project, it has its own site here: [https://wg-easy.github.io/wg-easy/latest](https://wg-easy.github.io/wg-easy/latest)
+
+- [Getting Started](https://wg-easy.github.io/wg-easy/latest/getting-started/)
+- [Basic Installation](https://wg-easy.github.io/wg-easy/latest/examples/tutorials/basic-installation/)
 
 ## Requirements
 
-* A host with a kernel that supports WireGuard (all modern kernels).
-* A host with Docker installed.
+- A host with a kernel that supports WireGuard (all modern kernels).
+- A host with Docker installed.
 
 ## Versions
 
-We provide more then 1 docker image to get, this will help you decide which one is best for you.
+> 💡 We follow semantic versioning (semver)
 
-| tag | Branch | Example | Description |
-| - | - | - | - |
-| `latest` | production | `ghcr.io/wg-easy/wg-easy:latest` or `ghcr.io/wg-easy/wg-easy` | stable as possbile get bug fixes quickly when needed, deployed against `production`. |
-| `13` | production | `ghcr.io/wg-easy/wg-easy:13` | same as latest, stick to a version tag. |
-| `nightly` | master | `ghcr.io/wg-easy/wg-easy:nightly` | mostly unstable gets frequent package and code updates, deployed against `master`. |
-| `development` | pull requests | `ghcr.io/wg-easy/wg-easy:development` | used for development, testing code from PRs before landing into `master`. |
+We offer multiple Docker image tags to suit your needs. The table below is in a particular order, with the first tag being the most recommended:
+
+| tag           | Branch                                                     | Example                                                       | Description                                                                                                                          |
+| ------------- | ---------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `15`          | latest minor for that major tag                            | `ghcr.io/wg-easy/wg-easy:15`                                  | latest features for specific major versions, no breaking changes                                                                     |
+| `latest`      | latest tag                                                 | `ghcr.io/wg-easy/wg-easy:latest` or `ghcr.io/wg-easy/wg-easy` | stable as possible get bug fixes quickly when needed, see Releases for more information.                                             |
+| `15.0`        | latest patch for that minor tag                            | `ghcr.io/wg-easy/wg-easy:15.0`                                | latest patches for specific minor version                                                                                            |
+| `15.0.0`      | specific tag                                               | `ghcr.io/wg-easy/wg-easy:15.0.0`                              | specific release, don't use this as this will not get updated                                                                        |
+| `nightly`     | [`master`](https://github.com/wg-easy/wg-easy/tree/master) | `ghcr.io/wg-easy/wg-easy:nightly`                             | mostly unstable gets frequent package and code updates, deployed against [`master`](https://github.com/wg-easy/wg-easy/tree/master). |
+| `development` | pull requests                                              | `ghcr.io/wg-easy/wg-easy:development`                         | used for development, testing code from PRs before landing into [`master`](https://github.com/wg-easy/wg-easy/tree/master).          |
 
 ## Installation
 
 ### 1. Install Docker
 
-If you haven't installed Docker yet, install it by running:
+If you haven't installed Docker yet, install it by running as root:
 
-```bash
+```shell
 curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $(whoami)
 exit
 ```
 
@@ -57,77 +80,85 @@ And log in again.
 
 ### 2. Run WireGuard Easy
 
+The easiest way to run WireGuard Easy is with Docker Compose.
+
+Just download [`docker-compose.yml`](docker-compose.yml), make necessary adjustments and
+execute `sudo docker compose up -d`.
+
+Now setup a reverse proxy to be able to access the Web UI from the internet.
+
+If you want to access the Web UI over HTTP, change the env var `INSECURE` to `true`. This is not recommended. Only use this for testing
+
+<!-- TOOD: add to docs: Grafana dashboard [21733](https://grafana.com/grafana/dashboards/21733-wireguard/) -->
+
+<!-- TOOD: add to docs
+To setup the IPv6 Network, simply run once:
+
+```bash
+  docker network create \
+  -d bridge --ipv6 \
+  -d default \
+  --subnet 10.42.42.0/24 \
+  --subnet fdcc:ad94:bacf:61a3::/64 wg \
+```
+
 To automatically install & run wg-easy, simply run:
 
-```
+```bash
   docker run -d \
-  --name=wg-easy \
-  -e LANG=de \
-  -e WG_HOST=<🚨YOUR_SERVER_IP> \
-  -e PASSWORD_HASH=<🚨YOUR_ADMIN_PASSWORD_HASH> \
+  --net wg \
   -e PORT=51821 \
-  -e WG_PORT=51820 \
+  --name wg-easy \
+  --ip6 fdcc:ad94:bacf:61a3::2a \
+  --ip 10.42.42.42 \
   -v ~/.wg-easy:/etc/wireguard \
+  -v /lib/modules:/lib/modules:ro \
   -p 51820:51820/udp \
   -p 51821:51821/tcp \
-  --cap-add=NET_ADMIN \
-  --cap-add=SYS_MODULE \
-  --sysctl="net.ipv4.conf.all.src_valid_mark=1" \
-  --sysctl="net.ipv4.ip_forward=1" \
+  --cap-add NET_ADMIN \
+  --cap-add SYS_MODULE \
+  --sysctl net.ipv4.ip_forward=1 \
+  --sysctl net.ipv4.conf.all.src_valid_mark=1 \
+  --sysctl net.ipv6.conf.all.disable_ipv6=0 \
+  --sysctl net.ipv6.conf.all.forwarding=1 \
+  --sysctl net.ipv6.conf.default.forwarding=1 \
   --restart unless-stopped \
   ghcr.io/wg-easy/wg-easy
 ```
 
-> 💡 Replace `YOUR_SERVER_IP` with your WAN IP, or a Dynamic DNS hostname.
->
-> 💡 Replace `YOUR_ADMIN_PASSWORD_HASH` with a bcrypt password hash to log in on the Web UI.
-
 The Web UI will now be available on `http://0.0.0.0:51821`.
+
+The Prometheus metrics will now be available on `http://0.0.0.0:51821/api/metrics`. Grafana dashboard [21733](https://grafana.com/grafana/dashboards/21733-wireguard/)
 
 > 💡 Your configuration files will be saved in `~/.wg-easy`
 
-WireGuard Easy can be launched with Docker Compose as well - just download
-[`docker-compose.yml`](docker-compose.yml), make necessary adjustments and
-execute `docker compose up --detach`.
+-->
 
 ### 3. Sponsor
 
-Are you enjoying this project? [Buy Emile a beer!](https://github.com/sponsors/WeeJeWel) 🍻
+Are you enjoying this project? Consider donating.
+
+Founder: [Buy Emile a beer!](https://github.com/sponsors/WeeJeWel) 🍻
+
+Maintainer: [Buy kaaax0815 a coffee!](https://github.com/sponsors/kaaax0815) ☕
+
+<!-- TOOD: add to docs
 
 ## Options
 
 These options can be configured by setting environment variables using `-e KEY="VALUE"` in the `docker run` command.
 
-| Env | Default | Example | Description |
-| - | - | - | - |
-| `PORT` | `51821` | `6789` | TCP port for Web UI. |
-| `WEBUI_HOST` | `0.0.0.0` | `localhost` | IP address web UI binds to. |
-| `PASSWORD_HASH` | - | `$2y$05$Ci...` | When set, requires a password when logging in to the Web UI. |
-| `PASSWORD` (deprecated) | - | `foobar123` | When set, requires a password when logging in to the Web UI. *(Not used if `PASSWORD_HASH` is set)* |
-| `WG_HOST` | - | `vpn.myserver.com` | The public hostname of your VPN server. |
-| `WG_DEVICE` | `eth0` | `ens6f0` | Ethernet device the wireguard traffic should be forwarded through. |
-| `WG_PORT` | `51820` | `12345` | The public UDP port of your VPN server. WireGuard will listen on that (othwise default) inside the Docker container. |
-| `WG_CONFIG_PORT`| `51820` | `12345` | The UDP port used on [Home Assistent Plugin](https://github.com/adriy-be/homeassistant-addons-jdeath/tree/main/wgeasy)
-| `WG_MTU` | `null` | `1420` | The MTU the clients will use. Server uses default WG MTU. |
-| `WG_PERSISTENT_KEEPALIVE` | `0` | `25` | Value in seconds to keep the "connection" open. If this value is 0, then connections won't be kept alive. |
-| `WG_DEFAULT_ADDRESS` | `10.8.0.x` | `10.6.0.x` | Clients IP address range. |
-| `WG_DEFAULT_DNS` | `1.1.1.1` | `8.8.8.8, 8.8.4.4` | DNS server clients will use. If set to blank value, clients will not use any DNS. |
-| `WG_ALLOWED_IPS` | `0.0.0.0/0, ::/0` | `192.168.15.0/24, 10.0.1.0/24` | Allowed IPs clients will use. |
-| `WG_PRE_UP` | `...` | - | See [config.js](https://github.com/wg-easy/wg-easy/blob/master/src/config.js#L19) for the default value. |
-| `WG_POST_UP` | `...` | `iptables ...` | See [config.js](https://github.com/wg-easy/wg-easy/blob/master/src/config.js#L20) for the default value. |
-| `WG_PRE_DOWN` | `...` | - | See [config.js](https://github.com/wg-easy/wg-easy/blob/master/src/config.js#L27) for the default value. |
-| `WG_POST_DOWN` | `...` | `iptables ...` | See [config.js](https://github.com/wg-easy/wg-easy/blob/master/src/config.js#L28) for the default value. |
-| `LANG` | `en` | `de` | Web UI language (Supports: en, ua, ru, tr, no, pl, fr, de, ca, es, ko, vi, nl, is, pt, chs, cht, it, th, hi). |
-| `UI_TRAFFIC_STATS` | `false` | `true` | Enable detailed RX / TX client stats in Web UI |
-| `UI_CHART_TYPE` | `0` | `1` | UI_CHART_TYPE=0 # Charts disabled, UI_CHART_TYPE=1 # Line chart, UI_CHART_TYPE=2 # Area chart, UI_CHART_TYPE=3 # Bar chart |
-
-> If you change `WG_PORT`, make sure to also change the exposed port.
+| Env        | Default   | Example     | Description                    |
+| ---------- | --------- | ----------- | ------------------------------ |
+| `PORT`.    | `51821`   | `6789`      | TCP port for Web UI.           |
+| `HOST`     | `0.0.0.0` | `localhost` | IP address web UI binds to.    |
+| `INSECURE` | `false`   | `true`      | If access over http is allowed |
 
 ## Updating
 
 To update to the latest version, simply run:
 
-```bash
+```shell
 docker stop wg-easy
 docker rm wg-easy
 docker pull ghcr.io/wg-easy/wg-easy
@@ -140,12 +171,22 @@ With Docker Compose WireGuard Easy can be updated with a single command:
 Compose file and it is not `latest`, make sure that it is changed to the desired
 one; by default it is omitted and
 [defaults to `latest`](https://docs.docker.com/engine/reference/run/#image-references)). \
-The WireGuared Easy container will be automatically recreated if a newer image
+The WireGuard Easy container will be automatically recreated if a newer image
 was pulled.
 
 ## Common Use Cases
 
-* [Using WireGuard-Easy with Pi-Hole](https://github.com/wg-easy/wg-easy/wiki/Using-WireGuard-Easy-with-Pi-Hole)
-* [Using WireGuard-Easy with nginx/SSL](https://github.com/wg-easy/wg-easy/wiki/Using-WireGuard-Easy-with-nginx-SSL)
+- [Using WireGuard-Easy with Pi-Hole](https://github.com/wg-easy/wg-easy/wiki/Using-WireGuard-Easy-with-Pi-Hole)
+- [Using WireGuard-Easy with nginx/SSL](https://github.com/wg-easy/wg-easy/wiki/Using-WireGuard-Easy-with-nginx-SSL)
 
 For less common or specific edge-case scenarios, please refer to the detailed information provided in the [Wiki](https://github.com/wg-easy/wg-easy/wiki).
+
+-->
+
+## License
+
+This project is licensed under the AGPL-3.0-only License - see the [LICENSE](LICENSE) file for details
+
+This project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Jason A. Donenfeld, ZX2C4 or Edge Security
+
+"WireGuard" and the "WireGuard" logo are registered trademarks of Jason A. Donenfeld
